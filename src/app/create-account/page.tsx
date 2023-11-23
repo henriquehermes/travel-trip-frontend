@@ -1,7 +1,7 @@
 "use client"
 
-import { useAuth } from "@/hooks/useAuth"
-import { ILogin } from "@/interfaces/auth.interfaces"
+import { useUser } from "@/hooks/useUser"
+import { ICreateUser } from "@/interfaces/user.interfaces"
 import { isValidEmail } from "@/utils/stringValidators"
 import {
 	Button,
@@ -16,9 +16,8 @@ import {
 import { useRouter } from "next/navigation"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
-const LoginPage = () => {
+const CreateAccountPage = () => {
 	const router = useRouter()
-
 	const {
 		control,
 		register,
@@ -27,16 +26,22 @@ const LoginPage = () => {
 	} = useForm({
 		defaultValues: {
 			email: "",
+			first_name: "",
+			last_name: "",
 			password: "",
+			confirm_password: "",
 		},
 	})
 
-	const { login, isLoading } = useAuth()
+	const { createAccount, isLoading } = useUser()
 
-	const handleLogin: SubmitHandler<ILogin> = async (data, event) => {
+	const handleCreateAccount: SubmitHandler<ICreateUser> = async (
+		data,
+		event
+	) => {
 		if (event) event.preventDefault()
 
-		await login({ email: data.email, password: data.password })
+		await createAccount(data)
 	}
 
 	return (
@@ -58,10 +63,10 @@ const LoginPage = () => {
 					minWidth={{ base: "100%", md: "500px" }}
 				>
 					<Text fontSize="30px" fontWeight="bold" mb="15px">
-						Login
+						Create Account
 					</Text>
 
-					<form onSubmit={handleSubmit(handleLogin)}>
+					<form onSubmit={handleSubmit(handleCreateAccount)}>
 						<Controller
 							name="email"
 							control={control}
@@ -78,10 +83,53 @@ const LoginPage = () => {
 											validate: (value) =>
 												isValidEmail(value) || "Invalid email.",
 										})}
-										placeholder="Email"
 									/>
 									<FormErrorMessage>
 										{errors.email?.message}
+									</FormErrorMessage>
+								</FormControl>
+							)}
+						/>
+
+						<Controller
+							name="first_name"
+							control={control}
+							render={({ field }) => (
+								<FormControl
+									marginBottom={5}
+									isInvalid={!!errors.first_name}
+								>
+									<FormLabel>First Name</FormLabel>
+									<Input
+										{...field}
+										{...register("first_name", {
+											required: "First Name is required.",
+										})}
+									/>
+									<FormErrorMessage>
+										{errors.first_name?.message}
+									</FormErrorMessage>
+								</FormControl>
+							)}
+						/>
+
+						<Controller
+							name="last_name"
+							control={control}
+							render={({ field }) => (
+								<FormControl
+									marginBottom={5}
+									isInvalid={!!errors.last_name}
+								>
+									<FormLabel>Last Name</FormLabel>
+									<Input
+										{...field}
+										{...register("last_name", {
+											required: "Last Name is required.",
+										})}
+									/>
+									<FormErrorMessage>
+										{errors.last_name?.message}
 									</FormErrorMessage>
 								</FormControl>
 							)}
@@ -94,15 +142,37 @@ const LoginPage = () => {
 								<FormControl my="15px" isInvalid={!!errors.password}>
 									<FormLabel>Password</FormLabel>
 									<Input
+										type="password"
 										{...field}
 										{...register("password", {
 											required: "Password is required.",
-											validate: () => "Invalid password.",
 										})}
-										placeholder="Password"
 									/>
 									<FormErrorMessage>
 										{errors.password?.message}
+									</FormErrorMessage>
+								</FormControl>
+							)}
+						/>
+
+						<Controller
+							name="confirm_password"
+							control={control}
+							render={({ field }) => (
+								<FormControl
+									my="15px"
+									isInvalid={!!errors.confirm_password}
+								>
+									<FormLabel>Confirm Password</FormLabel>
+									<Input
+										type="password"
+										{...field}
+										{...register("confirm_password", {
+											required: "Confirm Password is required.",
+										})}
+									/>
+									<FormErrorMessage>
+										{errors.confirm_password?.message}
 									</FormErrorMessage>
 								</FormControl>
 							)}
@@ -114,19 +184,19 @@ const LoginPage = () => {
 							type="submit"
 							marginTop="5px"
 						>
-							<Text>Login</Text>
+							<Text>Create</Text>
 						</Button>
 					</form>
 
 					<Button
 						onClick={() => {
-							router.push("/create-account")
+							router.push("/login")
 						}}
 						disabled={isLoading}
 						variant="underline"
 						mt="5px"
 					>
-						<Text>Create account</Text>
+						<Text>Go Back</Text>
 					</Button>
 				</Flex>
 			</ScaleFade>
@@ -134,4 +204,4 @@ const LoginPage = () => {
 	)
 }
 
-export default LoginPage
+export default CreateAccountPage
