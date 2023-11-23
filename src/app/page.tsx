@@ -1,95 +1,55 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import React from "react"
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+const containerStyle = {
+	width: "100vw",
+	height: "100vh",
 }
+
+const center = {
+	lat: -3.745,
+	lng: -38.523,
+}
+
+function MyComponent() {
+	const { isLoaded } = useJsApiLoader({
+		id: "google-map-script",
+		googleMapsApiKey: "AIzaSyDsTs45wY-HG7vAlPYwGiRgnW0KV72qjkk",
+	})
+
+	const [map, setMap] = React.useState(null)
+
+	const onUnmount = React.useCallback(function callback() {
+		setMap(null)
+	}, [])
+
+	return isLoaded ? (
+		<GoogleMap
+			mapContainerStyle={containerStyle}
+			center={{
+				lat: -31.95819035442703,
+				lng: 115.86647070477927,
+			}}
+			zoom={10}
+			onUnmount={onUnmount}
+		>
+			<Marker
+				onDraggableChanged={() => {}}
+				options={{
+					draggable: true,
+				}}
+				position={{
+					lat: -31.95819035442703,
+					lng: 115.86647070477927,
+				}}
+			/>
+			{/* Child components, such as markers, info windows, etc. */}
+		</GoogleMap>
+	) : (
+		<></>
+	)
+}
+
+export default React.memo(MyComponent)
