@@ -46,28 +46,33 @@ const CreateAccountPage = () => {
 
     return (
         <Flex
-            bgImage="/bgimage.jpg"
+            bgImage={{ base: "/bgimage.jpg", md: "" }}
             bgPos="bottom"
-            bgRepeat="no-repeat"
+            bgSize="cover"
             minH="100vh"
             minW="100vw"
             justify={{ base: "center", md: "flex-end" }}
             align="center"
         >
             <Flex
+                bgImage="/bgimage.jpg"
+                bgPos="bottom"
+                bgSize="cover"
+                flex={{ base: 0, md: 0.5, lg: 1 }}
                 display={{ base: "none", md: "flex" }}
-                padding="50px"
-                h="100vh"
+                padding={{ base: "30px", lg: "50px" }}
                 w="100%"
+                minH={{ base: "100%", md: "100vh" }}
                 justify="flex-start"
                 align="center"
+                overflow="hidden"
             >
                 <Text
-                    lineHeight={"110px"}
+                    lineHeight={{ base: "80px", lg: "110px" }}
                     color="white"
-                    fontSize="100px"
+                    fontSize={{ base: "70px", lg: "100px" }}
                     fontWeight="bold"
-                    textShadow="0 0 10px rgba(0,0,0,0.5)"
+                    textShadow="0 0 10px rgba(0,0,0,0.3)"
                 >
                     Unlock
                     <br />
@@ -80,159 +85,168 @@ const CreateAccountPage = () => {
             </Flex>
 
             <Flex
-                maxW={{ base: "100%", md: "600px" }}
-                w={{ base: "90%", md: "50vw" }}
-                h={{ base: "100%", md: "100vh" }}
-                borderRadius={{ base: "15px", md: 0 }}
+                flex={{ base: 1, md: 0.5, lg: 0.8 }}
+                minH={{ base: "100%", md: "100vh" }}
                 bgColor="#fff"
+                mx={{ base: "20px", md: 0 }}
+                borderRadius={{ base: "15px", md: 0 }}
                 padding={{ base: "20px 30px", md: "50px" }}
                 boxShadow="0px 5px 16px 5px rgba(0,0,0,0.5)"
                 flexDir="column"
                 justify="center"
             >
                 <ScaleFade in>
-                    <Text fontSize="40px" fontWeight="bold" mb="30px">
-                        Create Account
-                    </Text>
+                    <Flex
+                        flexDir="column"
+                        w="full"
+                        maxW={{ base: "100%", md: "500px" }}
+                    >
+                        <Text fontSize="40px" fontWeight="bold" mb="30px">
+                            Create Account
+                        </Text>
 
-                    <form onSubmit={handleSubmit(handleCreateAccount)}>
-                        <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => (
-                                <FormControl
-                                    marginBottom={5}
-                                    isInvalid={!!errors.email}
-                                >
-                                    <FormLabel>Email</FormLabel>
-                                    <Input
-                                        {...field}
-                                        {...register("email", {
-                                            required: "Email is required.",
-                                            validate: (value) =>
-                                                isValidEmail(value) ||
-                                                "Invalid email.",
-                                        })}
-                                    />
-                                    <FormErrorMessage>
-                                        {errors.email?.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-                            )}
-                        />
+                        <form onSubmit={handleSubmit(handleCreateAccount)}>
+                            <Controller
+                                name="email"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl
+                                        marginBottom={5}
+                                        isInvalid={!!errors.email}
+                                    >
+                                        <FormLabel>Email</FormLabel>
+                                        <Input
+                                            {...field}
+                                            {...register("email", {
+                                                required: "Email is required.",
+                                                validate: (value) =>
+                                                    isValidEmail(value) ||
+                                                    "Invalid email.",
+                                            })}
+                                        />
+                                        <FormErrorMessage>
+                                            {errors.email?.message}
+                                        </FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            />
 
-                        <Controller
-                            name="first_name"
-                            control={control}
-                            render={({ field }) => (
-                                <FormControl
-                                    marginBottom={5}
-                                    isInvalid={!!errors.first_name}
-                                >
-                                    <FormLabel>First Name</FormLabel>
-                                    <Input
-                                        {...field}
-                                        {...register("first_name", {
-                                            required: "First Name is required.",
-                                        })}
-                                    />
-                                    <FormErrorMessage>
-                                        {errors.first_name?.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-                            )}
-                        />
+                            <Controller
+                                name="first_name"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl
+                                        marginBottom={5}
+                                        isInvalid={!!errors.first_name}
+                                    >
+                                        <FormLabel>First Name</FormLabel>
+                                        <Input
+                                            {...field}
+                                            {...register("first_name", {
+                                                required:
+                                                    "First Name is required.",
+                                            })}
+                                        />
+                                        <FormErrorMessage>
+                                            {errors.first_name?.message}
+                                        </FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            />
 
-                        <Controller
-                            name="last_name"
-                            control={control}
-                            render={({ field }) => (
-                                <FormControl
-                                    marginBottom={5}
-                                    isInvalid={!!errors.last_name}
-                                >
-                                    <FormLabel>Last Name</FormLabel>
-                                    <Input
-                                        {...field}
-                                        {...register("last_name", {
-                                            required: "Last Name is required.",
-                                        })}
-                                    />
-                                    <FormErrorMessage>
-                                        {errors.last_name?.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-                            )}
-                        />
+                            <Controller
+                                name="last_name"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl
+                                        marginBottom={5}
+                                        isInvalid={!!errors.last_name}
+                                    >
+                                        <FormLabel>Last Name</FormLabel>
+                                        <Input
+                                            {...field}
+                                            {...register("last_name", {
+                                                required:
+                                                    "Last Name is required.",
+                                            })}
+                                        />
+                                        <FormErrorMessage>
+                                            {errors.last_name?.message}
+                                        </FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            />
 
-                        <Controller
-                            name="password"
-                            control={control}
-                            render={({ field }) => (
-                                <FormControl
-                                    my="15px"
-                                    isInvalid={!!errors.password}
-                                >
-                                    <FormLabel>Password</FormLabel>
-                                    <Input
-                                        type="password"
-                                        {...field}
-                                        {...register("password", {
-                                            required: "Password is required.",
-                                        })}
-                                    />
-                                    <FormErrorMessage>
-                                        {errors.password?.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-                            )}
-                        />
+                            <Controller
+                                name="password"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl
+                                        my="15px"
+                                        isInvalid={!!errors.password}
+                                    >
+                                        <FormLabel>Password</FormLabel>
+                                        <Input
+                                            type="password"
+                                            {...field}
+                                            {...register("password", {
+                                                required:
+                                                    "Password is required.",
+                                            })}
+                                        />
+                                        <FormErrorMessage>
+                                            {errors.password?.message}
+                                        </FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            />
 
-                        <Controller
-                            name="confirm_password"
-                            control={control}
-                            render={({ field }) => (
-                                <FormControl
-                                    my="15px"
-                                    isInvalid={!!errors.confirm_password}
-                                >
-                                    <FormLabel>Confirm Password</FormLabel>
-                                    <Input
-                                        type="password"
-                                        {...field}
-                                        {...register("confirm_password", {
-                                            required:
-                                                "Confirm Password is required.",
-                                        })}
-                                    />
-                                    <FormErrorMessage>
-                                        {errors.confirm_password?.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-                            )}
-                        />
+                            <Controller
+                                name="confirm_password"
+                                control={control}
+                                render={({ field }) => (
+                                    <FormControl
+                                        my="15px"
+                                        isInvalid={!!errors.confirm_password}
+                                    >
+                                        <FormLabel>Confirm Password</FormLabel>
+                                        <Input
+                                            type="password"
+                                            {...field}
+                                            {...register("confirm_password", {
+                                                required:
+                                                    "Confirm Password is required.",
+                                            })}
+                                        />
+                                        <FormErrorMessage>
+                                            {errors.confirm_password?.message}
+                                        </FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            />
+
+                            <Button
+                                w="100%"
+                                isLoading={isLoading}
+                                type="submit"
+                                marginTop="5px"
+                            >
+                                <Text>Create</Text>
+                            </Button>
+                        </form>
 
                         <Button
-                            w="100%"
-                            isLoading={isLoading}
-                            type="submit"
-                            marginTop="5px"
+                            onClick={() => {
+                                router.back();
+                            }}
+                            disabled={isLoading}
+                            variant="underline"
+                            mt="10px"
+                            w="full"
                         >
-                            <Text>Create</Text>
+                            <Text>Go Back</Text>
                         </Button>
-                    </form>
-
-                    <Button
-                        onClick={() => {
-                            router.push("/login");
-                        }}
-                        disabled={isLoading}
-                        variant="underline"
-                        mt="10px"
-                        w="full"
-                    >
-                        <Text>Go Back</Text>
-                    </Button>
+                    </Flex>
                 </ScaleFade>
             </Flex>
         </Flex>

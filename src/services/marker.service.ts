@@ -18,8 +18,15 @@ const markerServices = api
                     method: "POST",
                 }),
             }),
+            getMarkers: build.query<IMarkerResponse[], void>({
+                query: () => ({
+                    url: "/v1/markers",
+                    method: "GET",
+                }),
+            }),
         }),
         overrideExisting: false,
     });
 
-export const { useCreateNewMarkerMutation } = markerServices;
+export const { useCreateNewMarkerMutation, useGetMarkersQuery } =
+    markerServices;

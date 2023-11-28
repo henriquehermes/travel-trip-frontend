@@ -49,6 +49,9 @@ export const useAuth = () => {
         try {
             setIsLoading(true);
 
+            typeof localStorage !== "undefined" &&
+                localStorage.removeItem("travel_bug");
+
             dispatch(api.util.resetApiState());
             router.replace("/login");
         } catch (error) {

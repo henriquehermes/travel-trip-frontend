@@ -2,8 +2,11 @@
 import { type IErrorApi } from "@/services/api";
 import { TOAST_TYPE, showToast } from "./toast";
 
-export const handleApiError = (response: IErrorApi, message = "") => {
+export const handleApiError = (
+    response: IErrorApi,
+    message = "Unexpected error 😥",
+) => {
     if (response?.status !== 401) {
-        showToast(response?.data.error || message, TOAST_TYPE.ERROR);
+        showToast(response?.data?.error || message, TOAST_TYPE.ERROR);
     }
 };

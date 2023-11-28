@@ -1,7 +1,109 @@
-* {
-    -webkit-font-smoothing: antialiased;
-}
+ 
 
 ul {
     list-style-type: none;
+}
+ 
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.react-datepicker-popper {
+    z-index: 100 !important;
+}
+
+.react-datepicker-wrapper {
+    width: 100% !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+    background-color: #fff !important;
+    border-radius: 10px;
+    border: 2.5px solid #6fb1c8 !important;
+    color: #091f40 !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: "__Urbanist_937836", "__Urbanist_Fallback_937836", sans-serif !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info:hover {
+    background-color: #6fb1c8 !important;
+    transition: all 0.2s linear;
+}
+
+.Toastify__progress-bar--info {
+    background-color: #6fb1c8 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+    background-color: #fff !important;
+    border-radius: 10px;
+    border: 2.5px solid #5da23f !important;
+    color: #5da23f !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: "__Urbanist_937836", "__Urbanist_Fallback_937836", sans-serif !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success:hover {
+    background-color: #5da23f !important;
+    transition: all 0.2s linear;
+    color: #fff !important;
+}
+
+.Toastify__progress-bar--success {
+    background-color: #5da23f !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+    background-color: #fff !important;
+    border-radius: 10px;
+    border: 2.5px solid #ff6464 !important;
+    color: #ff6464 !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: "__Urbanist_937836", "__Urbanist_Fallback_937836", sans-serif !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error:hover {
+    background-color: #ff6464 !important;
+    color: #fff !important;
+    transition: all 0.2s linear;
+}
+
+.Toastify__progress-bar--error {
+    background-color: #ff6464 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warn {
+    background-color: #fff !important;
+    border-radius: 10px;
+    border: 2.5px solid #ff9f74 !important;
+    color: #ff9f74 !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    font-family: "__Urbanist_937836", "__Urbanist_Fallback_937836", sans-serif !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warn:hover {
+    background-color: #ff9f74 !important;
+    color: #fff !important;
+    transition: all 0.2s linear;
+}
+
+.Toastify__progress-bar--warn {
+    background-color: #ff9f74 !important;
+}
+
+.Toastify__close-button>svg {
+    fill: #091f40 !important;
 }

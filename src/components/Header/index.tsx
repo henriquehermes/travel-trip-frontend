@@ -6,59 +6,65 @@ import {
     Input,
     InputGroup,
     InputLeftElement,
+    Menu,
+    MenuButton,
+    MenuDivider,
+    MenuGroup,
+    MenuItem,
+    MenuList,
     Show,
     Text,
 } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
-import localFont from "next/font/local";
-import { MenuHamburger } from "../MenuHamburger";
 import { memo } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-
-const myFont = localFont({
-    src: [
-        {
-            path: "../../theme/fonts/Billabong.ttf",
-            weight: "400",
-            style: "normal",
-        },
-    ],
-});
+import Hamburger from "hamburger-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const HeaderComponent = () => {
     const router = useRouter();
+
+    const { logout } = useAuth();
     const { user } = useUser();
 
     return (
         <Flex
+            pos="absolute"
+            w="100vw"
+            left={0}
+            right={0}
             paddingX={{ base: "10px", md: "40px" }}
             paddingY={{ base: "10px", md: "20px" }}
             align="center"
-            bgColor="#ffffff"
-            zIndex={999}
+            zIndex={99999}
             justifyContent={"space-between"}
             gap={2}
         >
-            <Flex gap={5} align={"center"} w="full" flex={1}>
-                <Show breakpoint="(max-width: 768px)">
-                    <MenuHamburger />
-                </Show>
-                <Text
-                    fontSize={{ base: "30px", md: "35px" }}
-                    fontFamily={myFont.style.fontFamily}
-                    color="#1f1f1f"
-                >
-                    travel bug
-                </Text>
+            <Flex align={"center"}>
+                <Menu>
+                    {({ isOpen }) => (
+                        <>
+                            <MenuButton bgColor="#fff" borderRadius="15px">
+                                <Hamburger toggled={isOpen} size={20} />
+                            </MenuButton>
+                            <MenuList>
+                                <MenuGroup title="Profile">
+                                    <MenuItem>My Account</MenuItem>
+                                </MenuGroup>
+                                <MenuDivider />
+                                <MenuGroup>
+                                    <MenuItem onClick={logout}>Logout</MenuItem>
+                                </MenuGroup>
+                            </MenuList>
+                        </>
+                    )}
+                </Menu>
             </Flex>
 
             <Flex align={"center"} justify="flex-end" w="full" flex={1} gap={5}>
                 <Show breakpoint="(min-width: 768px)">
-                    <InputGroup
-                        maxW={{ base: "100%", md: "300px" }}
-                        variant="secondary"
-                    >
+                    <InputGroup maxW={{ base: "100%", md: "300px" }}>
                         <InputLeftElement>
                             <FiSearch />
                         </InputLeftElement>
